@@ -13,8 +13,8 @@ $messages = [
         "fr" => "Fichier clients.json non trouvé."
     ],
     "pdf_not_found" => [
-        "en" => "Invoice PDF not found.",
-        "fr" => "Fichier invoice.pdf non trouvé."
+        "en" => "File PDF not found.",
+        "fr" => "Fichier pdf non trouvé."
     ],
     "upload_error" => [
         "en" => "Error uploading file.",
@@ -55,7 +55,7 @@ switch ($requestMethod) {
         if ($requestUri == '/api/clients') {
             getClients();
         } elseif ($requestUri == '/api/pdf') {
-            downloadInvoice();
+            downloadFile();
         } else {
             sendResponse(400, ["message" => $messages["invalid_request"][$language]]);
         }
@@ -87,7 +87,8 @@ function getClients() {
 }
 
 // Function to download a fictitious PDF file
-function downloadInvoice() {
+function downloadFile()
+{
     global $messages, $language;
 
     // Ensure that the 'file_name' parameter is provided and safe
