@@ -34,8 +34,13 @@ $messages = [
     ],
 ];
 
-// Détecter la langue préférée
-$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) === 'fr' ? 'fr' : 'en';
+// Définir la langue par défaut
+$language = 'en'; // Anglais par défaut
+
+// Vérifier si le paramètre 'lang' est présent dans la requête
+if (isset($_GET['language']) && in_array($_GET['language'], ['en', 'fr'])) {
+    $language = $_GET['language'];
+}
 
 // Récupérer l'URI de la requête
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
