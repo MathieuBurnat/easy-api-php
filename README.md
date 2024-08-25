@@ -1,10 +1,14 @@
 # Introduction
+Ce projet est un exemple afin de montrer à quoi ressemble la structure d'une API en php.
+
 ## Structure des fichiers
+Ici vous trouverez la structure d'exemple :
+```
 /api/
 |-- index.php          (point d'entrée de l'API)
 |-- clients.json       (fichier JSON contenant des clients fictifs)
-|-- invoice.pdf        (fichier PDF fictif)
 |-- uploads/           (dossier pour stocker les fichiers uploadés)
+```
 
 ## API : Contenus
 
