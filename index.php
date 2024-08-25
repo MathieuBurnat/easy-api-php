@@ -32,6 +32,10 @@ $messages = [
         "en" => "Method not allowed.",
         "fr" => "Méthode non autorisée."
     ],
+    "directory_transversal_not_allowed" => [
+        "en" => "Directory transversal not allowed.",
+        "fr" => "le changement de repertoire est interdit"
+    ],
 ];
 
 // Définir la langue par défaut
