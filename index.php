@@ -96,9 +96,32 @@ function downloadInvoice() {
         $pdfFile = "uploads/" . $fileName; // Correct concatenation with a dot operator
 
         if (file_exists($pdfFile)) {
-            header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment; filename="' . $fileName . '"');
-            readfile($pdfFile);
+            /*
+            $basepath = '/uploads/';
+            $realBase = realpath($basepath);
+
+            $userpath = $basepath . $_GET['file_name'];
+            $realUserPath = realpath($userpath);
+            */
+
+            $fileName = $_GET['file_name']; // User-supplied input
+            $baseDirectory = 'uploads/'; // Base directory path
+
+            $realPath = realpath($baseDirectory . $fileName); // Get the real path
+
+            echo ("\n test : " . realpath('uploads/a-pdf.pdf'));
+
+            echo ("\n fileName ->" . $fileName);
+            echo ("\n baseDirectory ->" . $baseDirectory);
+            echo ("\n realPath ->" . $realPath);
+
+            if (strpos($realPath, $baseDirectory) !== false) {
+                header('Content-Type: application/pdf');
+                header('Content-Disposition: attachment; filename="' . $fileName . '"');
+                readfile("uploads/" . $fileName);
+            } else {
+                sendResponse(404, ["message" => $messages["directory_transversal_not_allowed"][$language]]);
+            }
             exit;
         } else {
             sendResponse(404, ["message" => $messages["pdf_not_found"][$language]]);
