@@ -82,17 +82,25 @@ function getClients() {
     }
 }
 
-// Fonction pour télécharger un fichier PDF fictif
+// Function to download a fictitious PDF file
 function downloadInvoice() {
     global $messages, $language;
-    $pdfFile = 'invoice.pdf';
-    if (file_exists($pdfFile)) {
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="invoice.pdf"');
-        readfile($pdfFile);
-        exit;
+
+    // Ensure that the 'file_name' parameter is provided and safe
+    if (isset($_GET['file_name'])) {
+        $fileName = basename($_GET['file_name']); // Use basename to avoid directory traversal
+        $pdfFile = "uploads/" . $fileName; // Correct concatenation with a dot operator
+
+        if (file_exists($pdfFile)) {
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="' . $fileName . '"');
+            readfile($pdfFile);
+            exit;
+        } else {
+            sendResponse(404, ["message" => $messages["pdf_not_found"][$language]]);
+        }
     } else {
-        sendResponse(404, ["message" => $messages["pdf_not_found"][$language]]);
+        sendResponse(400, ["message" => $messages["invalid_request"][$language]]);
     }
 }
 
