@@ -95,26 +95,12 @@ function downloadInvoice() {
         $fileName = basename($_GET['file_name']); // Use basename to avoid directory traversal
         $pdfFile = "uploads/" . $fileName; // Correct concatenation with a dot operator
 
+        // Check if the file exists
         if (file_exists($pdfFile)) {
-            /*
-            $basepath = '/uploads/';
-            $realBase = realpath($basepath);
-
-            $userpath = $basepath . $_GET['file_name'];
-            $realUserPath = realpath($userpath);
-            */
-
-            $fileName = $_GET['file_name']; // User-supplied input
             $baseDirectory = 'uploads/'; // Base directory path
 
             $realPath = realpath($baseDirectory . $fileName); // Get the real path
-
-            echo ("\n test : " . realpath('uploads/a-pdf.pdf'));
-
-            echo ("\n fileName ->" . $fileName);
-            echo ("\n baseDirectory ->" . $baseDirectory);
-            echo ("\n realPath ->" . $realPath);
-
+          
             if (strpos($realPath, $baseDirectory) !== false) {
                 header('Content-Type: application/pdf');
                 header('Content-Disposition: attachment; filename="' . $fileName . '"');
